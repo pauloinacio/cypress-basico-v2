@@ -12,7 +12,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it('preenche os campos obrigatórios e envia o formulário', function()
+    it.only('preenche os campos obrigatórios e envia o formulário', function()
     {
         const longTest = 'teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste teste Teste Teste Teste'
         cy.get('#firstName').type('Teste First')
@@ -33,6 +33,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#open-text-area').type(longTest , {delay: 0})
         cy.get('button[type="submit"').click()
         cy.get('.error').should('be.visible')
+        
     })
 
     it('Validar campo telefone', function()
@@ -84,6 +85,33 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.success > strong').should('be.visible')
         
     })
+
+    it('seleciona um produto (YouTube) por seu texto', function()
+    {
+        cy.get('#product').select('YouTube').should('have.value' , 'youtube')
+        cy.get('#product').select('mentoria').should('have.value' , 'mentoria')
+        cy.get('#product').select(1).should('have.value' , 'blog')
+        
+    })
+
+    it('marca o tipo de atendimento "Feedback"', function()
+    {
+        cy.get('input[type="radio"][value="feedback"]').check()
+       
+        
+    })
+    it('marca o tipo de atendimento "Feedback"', function()
+    {
+        cy.get('input[type="radio"]')
+        .each(function($radio)
+        {
+            cy.wrap($radio).check()
+            cy.wrap($radio).check().should('be.checked')
+        })
+       
+        
+    })
+    
 
 
     
